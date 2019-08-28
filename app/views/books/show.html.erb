@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+   <div class="col-lg-3" > 
+  <div>
+      <h2>User info</h2>
+      <%= attachment_image_tag @book.user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+  </div>
+
+  <h3 class="profile-name"><%= @book.user.name %></h3>
+
+  <table>
+    <thead>
+      <tr>
+        <%= @book.user.name %>
+        <th>introduction</th>
+        <th><%= @book.user.introduction %></th>
+      </tr>
+    </thead>
+  </table>
+      <div>
+        <%= link_to "プロフィール編集", edit_user_path %>
+      </div>
+  
+  <h2>New book</h2>
+    <%= form_for (@book) do |f| %>
+
+      <h4>Title</h4>
+      <%= f.text_field :title %>
+
+      <h4>Opinion</h4>
+      <%= f.text_area :body %>
+
+      <%= f.submit'Create Book' %>
+
+    <% end %>
+ </div>
+
+
+<div class="col-lg-9"> 
+  <h2>Book detail</h2>
+    <table class="table">
+    <thead>
+     <tr>
+     </thead>
+      <tr>
+       <td><%= attachment_image_tag @book.user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+       <%= link_to @book.user.name,  user_path(@book.user.id) %>
+       <td><%= @book.title %></td>
+       <td><%= @book.body %></td>
+        <% if @book.user == current_user %>
+          <td><%= link_to "Edit", edit_book_path %></td>
+          <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
+          </tr>
+        <% end %>
+    </table>
+  </div>
+
